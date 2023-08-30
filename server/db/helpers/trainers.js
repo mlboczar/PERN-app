@@ -23,4 +23,17 @@ const createTrainer = async ({ username, password, name }) => {
     }
 }
 
-module.exports = { createTrainer }
+const getAllTrainers = async () => {
+    try {
+        const { rows }
+         = await client.query(`
+            SELECT *
+            FROM trainers;
+        `)
+        return rows
+    } catch (error) {
+        throw error
+    }
+}
+
+module.exports = { createTrainer, getAllTrainers }

@@ -2,7 +2,9 @@
 //pulling in connection to my local database
 const client = require('./client')
 
-const { createTrainer } = require('./helpers/trainers')
+const { createTrainer, getAllTrainers } = require('./helpers/trainers')
+const { createType } = require('./helpers/types')
+const { createSpecies } = require('./helpers/species')
 
 const { trainers, types, species, pokemon } = require('./seedData')
 
@@ -35,13 +37,13 @@ const createTables = async () => {
         );
         CREATE TABLE types (
             type_id SERIAL PRIMARY KEY,
-            name varchar(255) UNIQUE NOT NULL
+            type varchar(255) UNIQUE NOT NULL
         );
         CREATE TABLE species (
             species_id SERIAL PRIMARY KEY,
             name varchar(255) UNIQUE NOT NULL,
-            primary_type_id INTEGER REFERENCES types(type_id) NOT NULL,
-            secondary_type_id INTEGER REFERENCES types(type_id)
+            "primaryTypeId" INTEGER REFERENCES types(type_id) NOT NULL,
+            "secondaryTypeId" INTEGER REFERENCES types(type_id)
         );
         CREATE TABLE pokemon (
             pokemon_id SERIAL PRIMARY KEY,
@@ -67,9 +69,32 @@ const createInitialTrainers = async () => {
     } catch (error) {
         throw error
     }
-    
 }
 
+//Create types
+const createInitialTypes = async () => {
+    try {
+        for (const typeName of types) {
+            await createType( { type: typeName } )
+        }
+        console.log("created types")
+    } catch (error) {
+        throw error
+    }
+}
+
+//Create species
+const createInitialSpecies = async () => {
+    try {
+        for (const specy of species) {
+            console.log(species)
+            await createSpecies(specy)
+        }
+        console.log("created species")
+    } catch (error) {
+        throw error
+    }
+}
 
 //Call all my functions and 'BUILD' my database
 const rebuildDb = async () => {
@@ -83,7 +108,8 @@ const rebuildDb = async () => {
         //Generating starting data
         console.log("starting to seed...")
         await createInitialTrainers();
-        
+        await createInitialTypes()
+        await createInitialSpecies()
 
     } catch (error) {
         console.error(error)

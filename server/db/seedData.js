@@ -28,6 +28,7 @@ const types = [
     "Ice",
     "Poison",
     "???",
+    "n/a"
 ]
 
 //species
