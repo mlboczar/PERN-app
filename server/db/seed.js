@@ -4,7 +4,7 @@ const client = require('./client')
 
 const { createTrainer, getAllTrainers } = require('./helpers/trainers')
 const { createType } = require('./helpers/types')
-const { createSpecies } = require('./helpers/species')
+const { createSpecies, getSpeciesById } = require('./helpers/species')
 
 const { trainers, types, species, pokemon } = require('./seedData')
 
@@ -108,7 +108,7 @@ const rebuildDb = async () => {
 
         //Generating starting data
         console.log("starting to seed...")
-        await createInitialTrainers();
+        await createInitialTrainers()
         await createInitialTypes()
         await createInitialSpecies()
 
