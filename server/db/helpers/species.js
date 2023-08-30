@@ -6,6 +6,7 @@ const createSpecies = async ({ name, primaryTypeId, secondaryTypeId }) => {
         console.log(name)
         const {
             rows: [species],
+            //need quotes in the primaryTypeId & secondaryTypeId because psql is picky with camelCase
         } = await client.query (
             `
                 INSERT INTO species(name, "primaryTypeId", "secondaryTypeId" )

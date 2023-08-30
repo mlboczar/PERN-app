@@ -75,6 +75,7 @@ const createInitialTrainers = async () => {
 const createInitialTypes = async () => {
     try {
         for (const typeName of types) {
+            //Structured like this because we only have an array of strings in the seed data, and we want to put that in object format for the function
             await createType( { type: typeName } )
         }
         console.log("created types")
@@ -87,7 +88,7 @@ const createInitialTypes = async () => {
 const createInitialSpecies = async () => {
     try {
         for (const specy of species) {
-            console.log(species)
+            //Single specy because we're popping one at a time in the DB
             await createSpecies(specy)
         }
         console.log("created species")
