@@ -5,6 +5,7 @@ const client = require('./client')
 const { createTrainer, getAllTrainers } = require('./helpers/trainers')
 const { createType } = require('./helpers/types')
 const { createSpecies, getSpeciesById } = require('./helpers/species')
+const { createPokemon } = require('./helpers/pokemon')
 
 const { trainers, types, species, pokemon } = require('./seedData')
 
@@ -30,7 +31,7 @@ const createTables = async () => {
     console.log("Building tables...")
     await client.query(`
         CREATE TABLE trainers (
-            trainer_id SERIAL PRIMARY KEY,
+            "trainerId" SERIAL PRIMARY KEY,
             username varchar(255) UNIQUE NOT NULL,
             password varchar(255) NOT NULL,
             name varchar(255) NOT NULL
@@ -40,16 +41,16 @@ const createTables = async () => {
             type varchar(255) UNIQUE NOT NULL
         );
         CREATE TABLE species (
-            species_id SERIAL PRIMARY KEY,
+            "speciesId" SERIAL PRIMARY KEY,
             name varchar(255) UNIQUE NOT NULL,
             "primaryTypeId" INTEGER REFERENCES types(type_id) NOT NULL,
             "secondaryTypeId" INTEGER REFERENCES types(type_id)
         );
         CREATE TABLE pokemon (
-            pokemon_id SERIAL PRIMARY KEY,
-            species_id INTEGER REFERENCES species(species_id) NOT NULL,
+            "pokemonId" SERIAL PRIMARY KEY,
+            "speciesId" INTEGER REFERENCES species("speciesId") NOT NULL,
             name varchar(255) NOT NULL,
-            trainer_id INTEGER REFERENCES trainers(trainer_id),
+            "trainerId" INTEGER REFERENCES trainers("trainerId"),
             is_fainted BOOLEAN NOT NULL
         );
     `)
@@ -97,6 +98,19 @@ const createInitialSpecies = async () => {
     }
 }
 
+//Create pokemon
+const createInitialPokemon = async () => {
+    try {
+        for (const pokeman of pokemon) {
+            //Single pokeman because we're popping one at a time in the DB
+            await createPokemon(pokeman)
+        }
+        console.log("created pokemon")
+    } catch (error) {
+        throw error
+    }
+}
+
 //Call all my functions and 'BUILD' my database
 const rebuildDb = async () => {
     try {
@@ -111,6 +125,7 @@ const rebuildDb = async () => {
         await createInitialTrainers()
         await createInitialTypes()
         await createInitialSpecies()
+        await createInitialPokemon()
 
     } catch (error) {
         console.error(error)

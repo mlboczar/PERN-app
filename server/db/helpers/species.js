@@ -20,6 +20,7 @@ const createSpecies = async ({ name, primaryTypeId, secondaryTypeId }) => {
     }
 }
 
+//Just an example of how you pull in the id to a query - this is not used in the database portion of this project
 const getSpeciesById = async (speciesId) => {
     try {
         const {
@@ -28,10 +29,9 @@ const getSpeciesById = async (speciesId) => {
             `
                 SELECT *
                 FROM species
-                WHERE species_id =${speciesId};
+                WHERE "speciesId" =${speciesId};
             `
         )
-        console.log(species)
         return species
     } catch (error) {
         throw error

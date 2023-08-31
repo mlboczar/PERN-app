@@ -10,7 +10,6 @@ async function createType({ type }) {
             RETURNING *;
         `, [type]
         )
-        console.log(typeName)
         return typeName
     } catch (error) {
         throw error
