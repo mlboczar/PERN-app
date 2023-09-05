@@ -1,5 +1,35 @@
 const client = require("../client")
 
+const getAllPokemon = async () => {
+    try {
+        const { rows }
+         = await client.query(`
+            SELECT *
+            FROM pokemon;
+        `)
+        return rows
+    } catch (error) {
+        throw error
+    }
+}
+
+const getPokemonById = async (pokemonId) => {
+    try {
+        const {
+            rows: [pokemon]
+        } = await client.query(
+            `
+                SELECT *
+                FROM pokemon
+                WHERE "pokemonId" =${pokemonId};
+            `
+        )
+        return pokemon;
+    } catch (error) {
+        throw error
+    }
+}
+
 const createPokemon = async ({ speciesId, name, trainerId, isFainted }) => {
     try {
         const {
@@ -18,4 +48,4 @@ const createPokemon = async ({ speciesId, name, trainerId, isFainted }) => {
     }
 }
 
-module.exports = { createPokemon } 
+module.exports = { getAllPokemon, getPokemonById, createPokemon } 
