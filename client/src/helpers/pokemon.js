@@ -1,11 +1,14 @@
-const baseUrl = `http://localhost:8080/api`;
+// pokemon fetch requests
+
+const baseUrl = 'http://localhost:8080';
 
 export async function fetchAllPokemon() {
-  try {
-    const response = await fetch(`${baseUrl}/pokemon`);
-    const result = await response.json();
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
+    try {
+        const response = await fetch(`${baseUrl}/api/pokemon`);
+        const returnVal = await response.json();
+        return returnVal;
+    } catch(err) {
+        console.log(err);
+        return err;
+    }
 }

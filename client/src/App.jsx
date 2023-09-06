@@ -1,18 +1,23 @@
-import { useEffect, useState } from 'react'
-import { fetchAllPokemon } from './helpers/pokemon'
-import PokemonList from './components/PokemonList'
-import './App.css'
+import './App.css';
+import {useState, useEffect} from 'react';
+import { fetchAllPokemon } from './helpers/pokemon';
+import PokemonList from './components/PokemonList';
 
 function App() {
-  const [allPokemon, setAllPokemon] = useState([])
+  // useState
+  const [allPokemon, setAllPokemon] = useState([]);
 
+  // useEffect
   useEffect(() => {
-    async function getPokemon() {
+    async function fetchData() {
       const pokemon = await fetchAllPokemon();
       setAllPokemon(pokemon);
+      console.log(pokemon);
+      return pokemon;
     }
-    getPokemon();
+    fetchData();
   },[]);
+
   return (
     <>
       <PokemonList allPokemon={allPokemon} />
@@ -20,4 +25,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
