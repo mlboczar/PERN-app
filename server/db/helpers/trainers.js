@@ -1,6 +1,6 @@
 const client = require('../client')
 
-const createTrainer = async ({ username, password, name }) => {
+const createTrainer = async ({ username, password }) => {
     try {
         const {
             rows: [trainer],
@@ -10,12 +10,12 @@ const createTrainer = async ({ username, password, name }) => {
            // VALUES(var1, var2, var3)
            // RETURNING everything
             `
-                INSERT INTO trainers(username, password, name)
-                VALUES($1, $2, $3)
+                INSERT INTO trainers(username, password)
+                VALUES($1, $2)
                 RETURNING *;
             `,
             //Kind of like a dependency array, hooks up the parameters to the dolla dolla variables
-            [username, password, name]
+            [username, password]
         )
         return trainer
     } catch (error) {
@@ -36,4 +36,17 @@ const getAllTrainers = async () => {
     }
 }
 
-module.exports = { createTrainer, getAllTrainers }
+const getTrainerByUsername = async (username) => {
+	const {
+		rows: [trainer],
+	} = await client.query(
+		`
+      SELECT * 
+      FROM trainers
+      WHERE trainers.username = '${username}'
+      `
+	);
+	return trainer;
+};
+
+module.exports = { createTrainer, getAllTrainers, getTrainerByUsername }

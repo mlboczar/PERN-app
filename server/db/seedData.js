@@ -2,9 +2,9 @@
 
 //trainers
 const trainers = [
-    { username: 'ashrox', password: 'i<3profoak', name: 'Ash Ketchum'},
-    { username: 'waterwaterwater', password: 'lovestarmi', name: 'Misty LivesAtTheGym'},
-    { username: 'bestTrainerEvah', password: 'snorlaxLyfe', name: 'Megan Boczar'}
+    { username: 'ashrox', password: 'i<3profoak' },
+    { username: 'waterwaterwater', password: 'lovestarmi' },
+    { username: 'bestTrainerEvah', password: 'snorlaxLyfe' }
 ]
 
 //types

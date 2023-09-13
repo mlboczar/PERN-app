@@ -6,5 +6,6 @@ router.get('/health', (req, res, next) => {
 });
 
 router.use('/pokemon', require('./pokemon'));
+router.use('/trainers', require('./trainers'));
 
 module.exports = router;
