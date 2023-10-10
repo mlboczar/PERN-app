@@ -29,10 +29,10 @@ function App() {
       <Route path="/" element={
         <div>
           <h1>Home</h1>
-          <nav>
-            <Link to="/register"></Link>
-            <Link to="/login"></Link>
-            <Link to="/pokemon"></Link>
+          <nav style={{ color: 'white' }}>
+            <Link to="/register">Register</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/pokemon">Pokemon</Link>
           </nav>
         </div>
       } />
