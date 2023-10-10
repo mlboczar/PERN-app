@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const { authRequired } = require('./utils');
 const { getAllPokemon, getPokemonById, createPokemon, updatePokemon, deletePokemon } = require('../db/helpers');
 
 // GET - /api/pokemon - get all pokemon
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 
-router.post('/', async (req, res, next) => {
+router.post('/', authRequired, async (req, res, next) => {
     try {
         const pokemon = await createPokemon(req.body);
         res.send(pokemon);

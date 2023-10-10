@@ -1,6 +1,6 @@
 import './App.css';
 import {useState, useEffect} from 'react';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, Link} from 'react-router-dom';
 import { fetchAllPokemon } from './helpers/pokemon';
 import PokemonList from './components/PokemonList';
 import Register from './components/Register';
@@ -26,10 +26,19 @@ function App() {
   return (
     <>
     <Routes>
-      <Route path="/" element={<h1>Home</h1>} />
+      <Route path="/" element={
+        <div>
+          <h1>Home</h1>
+          <nav>
+            <Link to="/register"></Link>
+            <Link to="/login"></Link>
+            <Link to="/pokemon"></Link>
+          </nav>
+        </div>
+      } />
       <Route path="/register" element={<Register setToken={setToken} />} />
       <Route path="/login" element={<Login setToken={setToken} />} />
-      <Route path="/pokemon" element={<PokemonList allPokemon={allPokemon} />} />
+      <Route path="/pokemon" element={<PokemonList allPokemon={allPokemon} setAllPokemon={setAllPokemon} />} />
     </Routes>
       
     </>
