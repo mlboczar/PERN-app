@@ -1,6 +1,6 @@
 // pokemon fetch requests
 
-const baseUrl = 'http://localhost:8080';
+const baseUrl = 'https://pern-app-test.onrender.com';
 
 export async function fetchAllPokemon() {
     try {

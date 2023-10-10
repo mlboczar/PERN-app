@@ -1,4 +1,4 @@
-const BASE_URL = `http://localhost:8080/api`;
+const BASE_URL = `https://pern-app-test.onrender.com`;
 
 export const registerTrainer = async (username, password) => {
     try {
@@ -32,6 +32,40 @@ export const login = async (username, password) => {
             body: JSON.stringify({
                 username,
                 password
+            })
+        });
+        const result = await response.json();
+        console.log(result);
+        return result
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export const fetchPokemon = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/pokemon`)
+        const result = await response.json();
+        console.log(result);
+        return result
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export const makePokemon = async (pokemon, token) => {
+    try {
+        const response = await fetch(`${BASE_URL}/pokemon`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                name: pokemon.title,
+                species: pokemon.description,
+                trainer: pokemon.price,
+                isFainted: pokemon.location
             })
         });
         const result = await response.json();
