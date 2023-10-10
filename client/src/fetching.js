@@ -1,4 +1,4 @@
-const BASE_URL = `https://pern-app-test.onrender.com`;
+const BASE_URL = `https://pern-app-test.onrender.com/api`;
 
 export const registerTrainer = async (username, password) => {
     try {
